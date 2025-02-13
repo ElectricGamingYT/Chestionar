@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chestionar Interactiv</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:&display=swap');
+
+        body {
+            height: 100vh;
+            background-color: #f2f2f2;
+            background-image: url("background.png");
+            background-size: cover;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .quiz-box {
+            position: absolute;
+            top: 200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 350px;
+            padding: 20px;
+            background-color: rgba(85, 85, 85, 0.6);
+            backdrop-filter: blur(22px);
+            border-radius: 30px;
+            box-shadow: 0 0 555px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #f8f8f8;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        input[type="text"], select {
+            width: 90%;
+            height: 45px;
+            padding: 10px;
+            border: none;
+            background-color: rgba(85, 85, 85, 0.6);
+            color: #f8f8f8;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        input[type="text"]::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        select option {
+            background-color: rgba(85, 85, 85, 0.9);
+            color: #f8f8f8;
+        }
+
+        input[type="submit"] {
+            background-color: #FF7B50;
+            width: 90%;
+            height: 45px;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #ea5d32;
+        }
+
+        h2 {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-box">
+        <h2>Chestionar</h2>
+        <form id="quizForm">
+            <label for="question1">1. Care este numele tău?</label>
+            <input type="text" id="question1" name="question1" placeholder="Introdu numele" required autocomplete="off">
+
+            <label for="question2">2. Care este hobby-ul tău preferat?</label>
+            <select id="question2" name="question2" required>
+                <option value="sport">Sport</option>
+                <option value="muzica">Muzică</option>
+                <option value="citit">Citit</option>
+                <option value="altul">Altul</option>
+            </select>
+
+            <label for="question3">3. Cât de mulțumit ești de acest chestionar?</label>
+            <select id="question3" name="question3" required>
+                <option value="foarte-multumit">Foarte mulțumit</option>
+                <option value="multumit">Mulțumit</option>
+                <option value="neutru">Neutru</option>
+                <option value="nemultumit">Nemulțumit</option>
+            </select>
+
+            <input type="submit" value="Trimite">
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = {
+                question1: document.getElementById('question1').value,
+                question2: document.getElementById('question2').value,
+                question3: document.getElementById('question3').value
+            };
+        
+            fetch("WEBHOOK-URL-GENERAT", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert("Chestionar trimis cu succes!");
+                document.getElementById('quizForm').reset();
+            })
+            .catch(error => console.error("Eroare:", error));
+        });
+        </script>
+        
+</body>
+</html>

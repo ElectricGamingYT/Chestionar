@@ -119,7 +119,7 @@
                 question3: document.getElementById('question3').value
             };
         
-            fetch("WEBHOOK-URL-GENERAT", {
+            fetch("https://script.google.com/macros/s/AKfycbzawwpPkgr49GAYJWhD0iz6FVYn2I0e_QXWKv9CHzM/dev", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData)

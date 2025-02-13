@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ro">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chestionar Interactiv</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:&display=swap');
@@ -111,27 +113,34 @@
 
     <script>
         document.getElementById('quizForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    const formData = {
-        question1: document.getElementById('question1').value,
-        question2: document.getElementById('question2').value,
-        question3: document.getElementById('question3').value
-    };
+            event.preventDefault();
+            
+            const formData = {
+                question1: document.getElementById('question1').value,
+                question2: document.getElementById('question2').value,
+                question3: document.getElementById('question3').value,
+                timestamp: new Date().toISOString()
+            };
 
-    fetch("https://script.google.com/macros/s/AKfycbzniXikbmaDWPh7fpMmeZluKLNmGYaImwfdNSaVR_oCAYLifkQ6DkZNEY978oPlcRpp/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert("Chestionar trimis cu succes!");
-        document.getElementById('quizForm').reset();
-    })
-    .catch(error => console.error("Eroare:", error));
-    });
-        </script>
-        
+            // Link-ul spre Google Apps Script cu "/exec"
+            const scriptURL = "https://script.google.com/macros/s/AKfycbzawwpPkgr49GAYJWhD0iz6FVYn2I0e_QXWKv9CHzM/exec";  // 🔴 Pune aici link-ul TĂU!
+
+            fetch(scriptURL, {
+                method: "POST",
+                mode: "cors",  // Activare CORS
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Chestionar trimis cu succes!");
+                document.getElementById('quizForm').reset();
+            })
+            .catch(error => {
+                console.error("Eroare:", error);
+                alert("A apărut o eroare. Verifică consola pentru detalii.");
+            });
+        });
+    </script>
 </body>
 </html>

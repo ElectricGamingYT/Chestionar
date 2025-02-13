@@ -111,26 +111,26 @@
 
     <script>
         document.getElementById('quizForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const formData = {
-                question1: document.getElementById('question1').value,
-                question2: document.getElementById('question2').value,
-                question3: document.getElementById('question3').value
-            };
-        
-            fetch("https://script.google.com/macros/s/AKfycbzawwpPkgr49GAYJWhD0iz6FVYn2I0e_QXWKv9CHzM/dev", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData)
-            })
-            .then(response => response.text())
-            .then(data => {
-                alert("Chestionar trimis cu succes!");
-                document.getElementById('quizForm').reset();
-            })
-            .catch(error => console.error("Eroare:", error));
-        });
+    event.preventDefault();
+    
+    const formData = {
+        question1: document.getElementById('question1').value,
+        question2: document.getElementById('question2').value,
+        question3: document.getElementById('question3').value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbzniXikbmaDWPh7fpMmeZluKLNmGYaImwfdNSaVR_oCAYLifkQ6DkZNEY978oPlcRpp/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert("Chestionar trimis cu succes!");
+        document.getElementById('quizForm').reset();
+    })
+    .catch(error => console.error("Eroare:", error));
+    });
         </script>
         
 </body>
